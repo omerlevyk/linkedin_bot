@@ -81,3 +81,9 @@ kubectl -n linkedin-bot logs -f job/linkedin-bot-test
 
 After reviewing the output, change `DRY_RUN` to `"false"` and re-apply the
 CronJob. LinkedIn tokens expire; rotate the Secret before expiry.
+
+## Project documentation
+
+- [Project overview](docs/project.md)
+- [Work log](docs/work-log.md)
+- [Project readmap](docs/readmap.md)

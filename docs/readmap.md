@@ -15,13 +15,15 @@ current state and next priorities are clear.
 - [x] Add unit tests and Kubernetes manifests.
 - [x] Harden the container and pod security context.
 - [x] Document local and k3s deployment.
+- [x] Choose GitHub Container Registry and configure the CronJob image.
+- [x] Add CI for tests and container builds.
+- [x] Document safe Kubernetes Secret creation from an ignored `.env` file.
 
 ## Next: first deployment
 
 - [ ] Create and configure the LinkedIn developer application.
 - [ ] Obtain the `w_member_social` permission and personal author URN.
 - [ ] Create an OpenAI API key with an appropriate usage limit.
-- [ ] Choose a container registry and replace `REGISTRY` in the CronJob.
 - [ ] Build and push the first image.
 - [ ] Create the Kubernetes Secret outside Git.
 - [ ] Deploy the CronJob with dry-run enabled.
@@ -36,7 +38,7 @@ current state and next priorities are clear.
 - [ ] Add metrics or health notifications for successful and failed runs.
 - [ ] Add alerting before the LinkedIn token expires.
 - [ ] Define image tags and an upgrade/rollback procedure.
-- [ ] Add CI for tests, manifest validation, and container builds.
+- [ ] Add server-side Kubernetes schema validation to CI.
 
 ## Content improvements
 

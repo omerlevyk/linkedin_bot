@@ -14,7 +14,8 @@ a small local history so recent posts are not repeated.
 - A LinkedIn developer application with the **Share on LinkedIn** product and
   the `w_member_social` OAuth scope.
 - Your LinkedIn person URN (`urn:li:person:...`) and access token.
-- A container registry reachable by the k3s nodes.
+- Access to this repository's GitHub Container Registry package from the k3s
+  nodes.
 
 Use the official LinkedIn API. Browser automation can violate LinkedIn's terms
 and is intentionally not part of this project.
@@ -56,20 +57,28 @@ it. Set `POST_LANGUAGE` to the language you want (for example `English` or
 
 ```bash
 python -m unittest discover -s tests -v
-docker build -t REGISTRY/linkedin-bot:0.1.0 .
-docker push REGISTRY/linkedin-bot:0.1.0
+docker build -t ghcr.io/omerlevyk/linkedin_bot:0.1.0 .
 ```
 
-Edit the image in `k8s/cronjob.yaml`, then create the resources:
+GitHub Actions runs the tests on each push. A push to `main` publishes `latest`
+and a commit-specific image; pushing a tag such as `v0.1.0` also publishes the
+`0.1.0` image used by the CronJob.
+
+Create the resources and a local, ignored credentials file:
 
 ```bash
 kubectl apply -f k8s/namespace.yaml
-cp k8s/secret.example.yaml /tmp/linkedin-bot-secret.yaml
-# Fill in /tmp/linkedin-bot-secret.yaml; never commit it.
-kubectl apply -f /tmp/linkedin-bot-secret.yaml
+cp .env.example .env
+# Fill in .env; it is ignored by Git.
+kubectl -n linkedin-bot create secret generic linkedin-bot \
+  --from-env-file=.env
 kubectl apply -f k8s/pvc.yaml
 kubectl apply -f k8s/cronjob.yaml
 ```
+
+If the GitHub package is private, create an image pull Secret and reference it
+from the pod before deployment. Making only this package public avoids storing
+a GitHub token in the cluster.
 
 The supplied schedule is `07:30` in `Asia/Jerusalem`. Verify the first run in
 dry-run mode:

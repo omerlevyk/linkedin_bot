@@ -3,6 +3,16 @@
 This file records meaningful completed work. New entries should be added at the
 top of the log.
 
+## 2026-10-14 — Deployment automation
+
+Completed:
+
+- Selected GitHub Container Registry based on the repository's GitHub remote.
+- Replaced the placeholder Kubernetes image with the GHCR image path.
+- Added GitHub Actions tests, syntax checks, and container publication.
+- Added a safe, Git-ignored `.env` workflow for creating the Kubernetes Secret.
+- Documented version tagging and private-package considerations.
+
 ## 2026-10-14 — Initial application
 
 Completed:
@@ -26,4 +36,3 @@ Known validation limitation:
 
 - The image was not built locally because the current account could not access
   the Docker daemon socket.
-

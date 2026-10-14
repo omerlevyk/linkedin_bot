@@ -47,7 +47,14 @@ volume.
 | `linkedin_bot/` | Application source code |
 | `tests/` | Standard-library unit tests |
 | `k8s/` | Namespace, Secret example, PVC, and CronJob manifests |
+| `.github/workflows/` | Tests and GHCR image publication |
 | `docs/` | Architecture, progress, decisions, and planned work |
 | `Dockerfile` | Minimal non-root runtime image |
 | `README.md` | Setup, configuration, and deployment guide |
 
+## Delivery
+
+GitHub Actions runs unit tests and syntax checks for pull requests and pushes.
+Pushes to `main` publish `latest` and commit-specific images to GHCR. Version
+tags such as `v0.1.0` publish the corresponding `0.1.0` container tag used by
+the k3s manifest.

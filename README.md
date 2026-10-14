@@ -96,3 +96,4 @@ CronJob. LinkedIn tokens expire; rotate the Secret before expiry.
 - [Project overview](docs/project.md)
 - [Work log](docs/work-log.md)
 - [Project readmap](docs/readmap.md)
+- [Privacy policy](PRIVACY.md)

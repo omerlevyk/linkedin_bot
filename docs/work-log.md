@@ -3,6 +3,14 @@
 This file records meaningful completed work. New entries should be added at the
 top of the log.
 
+## 2026-10-14 — Privacy documentation
+
+Completed:
+
+- Added a public privacy policy for the LinkedIn developer application.
+- Documented processed data, service providers, retention, security, revocation,
+  and operator contact details.
+
 ## 2026-10-14 — Deployment automation
 
 Completed:

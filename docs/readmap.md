@@ -18,6 +18,7 @@ current state and next priorities are clear.
 - [x] Choose GitHub Container Registry and configure the CronJob image.
 - [x] Add CI for tests and container builds.
 - [x] Document safe Kubernetes Secret creation from an ignored `.env` file.
+- [x] Add a public privacy policy for the LinkedIn developer application.
 
 ## Next: first deployment
 

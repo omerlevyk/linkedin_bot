@@ -1,0 +1,7 @@
+.git
+__pycache__
+*.py[cod]
+.env
+.venv
+tests
+k8s

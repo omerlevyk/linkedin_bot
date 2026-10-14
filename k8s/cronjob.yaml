@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: linkedin-bot
+  namespace: linkedin-bot
+spec:
+  schedule: "30 7 * * *"
+  timeZone: "Asia/Jerusalem"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 300
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            runAsGroup: 10001
+            fsGroup: 10001
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: {type: RuntimeDefault}
+          containers:
+            - name: linkedin-bot
+              image: REGISTRY/linkedin-bot:0.1.0
+              imagePullPolicy: IfNotPresent
+              envFrom:
+                - secretRef: {name: linkedin-bot}
+              env:
+                - {name: DRY_RUN, value: "true"}
+                - {name: OPENAI_MODEL, value: "gpt-5-mini"}
+                - {name: POST_LANGUAGE, value: "English"}
+                - {name: LINKEDIN_VERSION, value: "202609"}
+                - {name: STATE_PATH, value: "/data/history.json"}
+              resources:
+                requests: {cpu: 25m, memory: 32Mi}
+                limits: {cpu: 250m, memory: 128Mi}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities: {drop: ["ALL"]}
+                readOnlyRootFilesystem: true
+              volumeMounts:
+                - {name: data, mountPath: /data}
+          volumes:
+            - name: data
+              persistentVolumeClaim: {claimName: linkedin-bot-data}
